@@ -19,7 +19,7 @@
     <!-- The form you add persons with -->
     <div id="input-area" class="content">
         <h1>Add a person</h1>
-        <form id="add-persons">
+        <form id="add-persons" onsubmit="return false;">
             <input class="form-field" id="name" type="text" name="name" placeholder="Name" />
             <select class="form-field" id="gender" name="gender">
                 <option value="" disabled selected hidden>Gender</option>
@@ -48,10 +48,7 @@
             </tbody>
         </table>
         <ul class="pagination" id="pagination-numbers">
-            <li class="active"><a href="#">1</a></li>
-            <li>
-                <a href="#">2</a>
-            </li>
+
         </ul>
     </div>
     <!-- Dialog box -->
@@ -65,8 +62,10 @@
     <script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
     <script src="bower_components/bootstrap-sass/assets/javascripts/bootstrap.min.js"></script>
     <script src="js/validateforms.js"></script>
+    <script src="js/pagination.js"></script>
     <script src="js/forms.js"></script>
     <script src="js/options.js"></script>
     <script src="js/confirm.js"></script>
 </body>
+
 </html>

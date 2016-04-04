@@ -14,54 +14,69 @@ function get_persons() {
 // ------------ ADD PERSON INTO LOCALSTORAGE ------------
 
 /* Adds an entry from input field values. Person is added to the Array and then stringified in the JSON file.
-   We then call the show_person() function to show the person that was just saved in the table. */
+   We then call the render_entries() function to show the person that was just saved in the table. */
 function add_person() {
-    var person_name = document.getElementById('name').value;
-    var genderDdl = document.getElementById('gender');
-    var person_gender = genderDdl.options[genderDdl.selectedIndex].value;
-    var person_age = document.getElementById('age').value;
+    var person_name = document.getElementById('name').value,
+        genderDdl = document.getElementById('gender'),
+        person_gender = genderDdl.options[genderDdl.selectedIndex].value,
+        person_age = document.getElementById('age').value;
 
     var persons = get_persons();
 
-    var person_id = counter.toString(); // This counter creates person IDs.
+    var person_id = counter; // This counter creates person IDs.
     counter++;
 
-    persons.push({'id': person_id, 'name': person_name, 'gender': person_gender, 'age': person_age});
+    persons.push({
+        'id': person_id,
+        'name': person_name,
+        'gender': person_gender,
+        'age': person_age
+    });
     localStorage.setItem('person', JSON.stringify(persons));
 
     if (document.forms['add-persons'].name.value !== "test_me") { // If Test Mode is on, don't reset form.
         document.getElementById("add-persons").reset();
     }
 
-    show_person();
+    render_entries(pagenumber);
 
     return false;
 }
 
-// ------------ DISPLAY PERSON IN THE DOCUMENT ------------
+// ------------ DISPLAY PERSONS IN THE DOCUMENT ------------
 
-/* Shows the persons in the JSON object. Creates a HTML snippet to wrap the person entries into the document.
-   Also a remove button is added next to each entry. Each remove button is added an event listener to call the
-   confirm_removal() function to remove the entry from the document. */
-function show_person() {
-    var persons = get_persons();
+/* Shows the persons in the JSON object. Creates a HTML snippet to wrap the person entries into
+   the document. Shows at most 7 entries on the page that is passed as a parameter (pagenumber).
+   Also a remove button is added next to each entry. Each remove button is added an event listener
+   to call the confirm_removal() function to remove the entry from the document. Pagebuttons are
+   displayed on the bottom of the page.*/
+function render_entries(pagenumber) {
+    var persons = get_persons(),
+        persons_on_page = paginate(persons);
 
     var html = '';
 
-    for(var i = 0; i < persons.length; i++) {
-        html += '<tr id="tablerow_' + i + '">';
-        html += '<td>' + persons[i].name + '</td>';
-        html += '<td>' + persons[i].gender + '</td>';
-        html += '<td>' + persons[i].age + '</td>';
-        html += '<td align="right"><a class="removebutton" id="' + i  + '"><i class="fa fa-times"></i></a></td>';
-        html += '</tr>';
+    if (persons.length !== 0) {
+        for (var i = 0; i < persons_on_page[pagenumber].length; i++) {
+            html += '<tr id="tablerow_' + i + '">';
+            html += '<td>' + persons_on_page[pagenumber][i].name + '</td>';
+            html += '<td>' + persons_on_page[pagenumber][i].gender + '</td>';
+            html += '<td>' + persons_on_page[pagenumber][i].age + '</td>';
+            html += '<td align="right"><a class="removebutton" id="' + (i + pagenumber * 7) + '"><i class="fa fa-times"></i></a></td>';
+            html += '</tr>';
+        }
     }
-
     document.getElementById('insert-to-table').innerHTML = html;
 
-    var buttons = document.getElementsByClassName('removebutton');
-    for (var j = 0; j < buttons.length; j++) {
-        buttons[j].addEventListener('click', confirm_removal);
+    var removebuttons = document.getElementsByClassName('removebutton');
+    for (var j = 0; j < removebuttons.length; j++) {
+        removebuttons[j].addEventListener('click', confirm_removal);
+    }
+
+    display_pagebuttons();
+
+    if (persons.length !== 0) {
+        set_active_page(pagenumber);
     }
 }
 
@@ -75,14 +90,19 @@ function remove_person(id) {
     persons.splice(id, 1);
     localStorage.setItem('person', JSON.stringify(persons));
 
-    show_person();
+    render_entries(pagenumber);
 
     return false;
 }
 
-/* Opens a modal dialog box to confirm removal of entry. */
+/* Opens a modal dialog box to confirm removal of entry. If entry has the name
+   "test_me", remove entry without modal dialog. */
 function confirm_removal() {
-    $("#dialog-confirm").dialog('open');
+    if (this.parentNode.parentNode.childNodes[0].innerHTML === "test_me") {
+        remove_person(this.id); // Gets the id of the button clicked, which is the same as the person's index.
+    } else {
+        $("#dialog-confirm").dialog('open');
+    }
 }
 
 // ------------ + BUTTON FUNCTIONALITY ------------
@@ -91,8 +111,16 @@ function confirm_removal() {
    If there are no errors, validateforms.js calls add_person();. */
 document.getElementById('addbutton').addEventListener('click', validateForms);
 
-/* Initialization for person ID creation. Counter helps with that. */
-var person_id = '0';
-var counter = 0;
+/* Add event listener to add-persons form. Now when enter key (keycode 13) is pressed,
+   it acts as if the + button was pressed. Makes things easier. */
+document.getElementById('add-persons').addEventListener('keydown', function(e) {
+    if (e.keyCode === 13) { validateForms(); }
+});
 
-show_person();
+/* Initialization for person ID creation. Counter helps with that. */
+var person_id = '0',
+    counter = 0;
+
+var pagenumber = 0;
+
+render_entries(pagenumber);

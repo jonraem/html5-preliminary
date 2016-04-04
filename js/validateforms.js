@@ -47,5 +47,5 @@ function validateAge() {
     }
 }
 
-var error = false;
-var test_mode = false;
+var error = false,
+    test_mode = false;

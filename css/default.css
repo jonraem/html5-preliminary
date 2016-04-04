@@ -5878,10 +5878,11 @@ td {
     margin-top: 30px;
     margin-bottom: 30px;
     font-weight: 200; }
-  .content table {
+  .content #persons-table {
     margin-top: 60px; }
-  .content ul {
-    margin-top: 90px; }
+  .content #pagination-numbers {
+    margin-top: 90px;
+    margin-bottom: 60px; }
 
 #input-area {
   padding-top: 15px;
@@ -5942,7 +5943,9 @@ td {
       margin-top: 20px; }
       .content form > .form-field#name {
         display: block;
-        width: 312px; } }
+        width: 312px; }
+    .content #pagination-numbers {
+      width: 100%; } }
 
 @media screen and (max-width: 375px) {
   .form-field {

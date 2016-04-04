@@ -92,11 +92,12 @@ td {
         margin-bottom:30px;
         font-weight:200;
     }
-    table {
+    #persons-table {
         margin-top:60px;
     }
-    ul {
+    #pagination-numbers {
         margin-top:90px;
+        margin-bottom:60px;
     }
 }
 
@@ -174,6 +175,9 @@ td {
                 display:block;
                 width:312px
             }
+        }
+        #pagination-numbers {
+            width:100%;
         }
     }
 }
