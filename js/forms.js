@@ -13,8 +13,8 @@ function get_persons() {
 
 // ------------ ADD PERSON INTO LOCALSTORAGE ------------
 
-/* Adds an entry from an input field value. Person is added to the Array and then stringified in the JSON file.
-   We then call the show_person() function to show the person that was just saved. */
+/* Adds an entry from input field values. Person is added to the Array and then stringified in the JSON file.
+   We then call the show_person() function to show the person that was just saved in the table. */
 function add_person() {
     var person_name = document.getElementById('name').value;
     var genderDdl = document.getElementById('gender');
@@ -23,13 +23,13 @@ function add_person() {
 
     var persons = get_persons();
 
-    var person_id = counter.toString();
+    var person_id = counter.toString(); // This counter creates person IDs.
     counter++;
 
     persons.push({'id': person_id, 'name': person_name, 'gender': person_gender, 'age': person_age});
     localStorage.setItem('person', JSON.stringify(persons));
 
-    if (document.forms['add-persons'].name.value !== "test_me") { // Test Mode
+    if (document.forms['add-persons'].name.value !== "test_me") { // If Test Mode is on, don't reset form.
         document.getElementById("add-persons").reset();
     }
 
@@ -42,7 +42,7 @@ function add_person() {
 
 /* Shows the persons in the JSON object. Creates a HTML snippet to wrap the person entries into the document.
    Also a remove button is added next to each entry. Each remove button is added an event listener to call the
-   remove_person() function to remove the entry from the document. */
+   confirm_removal() function to remove the entry from the document. */
 function show_person() {
     var persons = get_persons();
 
@@ -61,13 +61,14 @@ function show_person() {
 
     var buttons = document.getElementsByClassName('removebutton');
     for (var j = 0; j < buttons.length; j++) {
-        buttons[j].addEventListener('click', confirmRemoval);
+        buttons[j].addEventListener('click', confirm_removal);
     }
 }
 
 // ------------ REMOVE PERSON FROM THE DOCUMENT ------------
 
-/* Gets the id of the DOM object which had its remove button clicked. Then removes the person. */
+/* Gets the id of the table entry which had its remove button clicked as a parameter.
+   Then removes the person from the JSON and it is no longer rendered on the table. */
 function remove_person(id) {
     var persons = get_persons();
 
@@ -80,14 +81,14 @@ function remove_person(id) {
 }
 
 /* Opens a modal dialog box to confirm removal of entry. */
-function confirmRemoval() {
+function confirm_removal() {
     $("#dialog-confirm").dialog('open');
 }
 
 // ------------ + BUTTON FUNCTIONALITY ------------
 
 /* Add event listener to + button. Calls the validateForms function in validateforms.js.
-   If there are no errors, validateforms.js calls add_person();.*/
+   If there are no errors, validateforms.js calls add_person();. */
 document.getElementById('addbutton').addEventListener('click', validateForms);
 
 /* Initialization for person ID creation. Counter helps with that. */

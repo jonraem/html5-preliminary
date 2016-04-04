@@ -165,5 +165,24 @@ td {
 @media screen and (max-width:700px) {
     .content {
         width:100%;
+        &#input-area {
+            padding:20px;
+        }
+        form > .form-field {
+            margin-top:20px;
+            &#name {
+                display:block;
+                width:312px
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 375px) {
+    .form-field {
+        display:block;
+        &:not(#addbutton), &#name {
+            width:75% !important;
+        }
     }
 }

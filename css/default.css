@@ -5935,4 +5935,17 @@ td {
 
 @media screen and (max-width: 700px) {
   .content {
-    width: 100%; } }
+    width: 100%; }
+    .content#input-area {
+      padding: 20px; }
+    .content form > .form-field {
+      margin-top: 20px; }
+      .content form > .form-field#name {
+        display: block;
+        width: 312px; } }
+
+@media screen and (max-width: 375px) {
+  .form-field {
+    display: block; }
+    .form-field:not(#addbutton), .form-field#name {
+      width: 75% !important; } }

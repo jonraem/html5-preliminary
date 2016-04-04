@@ -1,3 +1,4 @@
+/* Create a list from 1 to 100 for the age dropdown list. */
 var ageDdl = document.getElementById('age');
 var options = '';
 

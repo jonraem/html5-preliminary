@@ -18,4 +18,14 @@ Technologies used:
 
 Instructions
 -
+* Installation should require no effort. Just download the ZIP and open index.html.
+* Table entries are saved into localStorage as JSON, so no virtual servers are required.
 * Write "test_me" into the name field to add entries without form validation.
+
+Status
+-
+There are still a few things missing from the perfect version.
+* Pagination of table entries.
+* Sorting of table entries by name, gender or age.
+* Enhanced responsivity. Responsive modal dialog.
+* Code refactoring. Optimization.
