@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Nord Software HTML5 Preliminary</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" rel="stylesheet" href="css/default.css" />
+    <link rel="stylesheet" href="bower_components/jquery-ui/themes/smoothness/jquery-ui.css" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Yantramanav:400,300,100">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <!-- Navbar with Nord logo -->
+    <nav class="navbar navbar-default navbar-static-top">
+        <a href="http://nordsoftware.com/" target="_blank"><img src="img/download.png" alt="Nord Software logo" /></a>
+    </nav>
+    <!-- The form you add persons with -->
+    <div id="input-area" class="content">
+        <h1>Add a person</h1>
+        <form id="add-persons">
+            <input class="form-field" id="name" type="text" name="name" placeholder="Name" />
+            <select class="form-field" id="gender" name="gender">
+                <option value="" disabled selected hidden>Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+            <select class="form-field" id="age" name="age">
+                <option value="" disabled selected hidden>Age</option>
+            </select>
+            <button class="form-field" type="button" id="addbutton"><i class="fa fa-plus"></i></button>
+        </form>
+    </div>
+    <!-- The table persons are inserted in -->
+    <div id="persons-section" class="content">
+        <table class="table table-striped" id="persons-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Gender</th>
+                    <th>Age</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="insert-to-table">
+
+            </tbody>
+        </table>
+        <ul class="pagination" id="pagination-numbers">
+            <li class="active"><a href="#">1</a></li>
+            <li>
+                <a href="#">2</a>
+            </li>
+        </ul>
+    </div>
+    <!-- Dialog box -->
+    <div id="dialog-confirm" title="Remove person">
+        <p>
+            Are you sure you want to remove this entry?
+        </p>
+    </div>
+    <!-- Linked scripts -->
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
+    <script src="bower_components/bootstrap-sass/assets/javascripts/bootstrap.min.js"></script>
+    <script src="js/validateforms.js"></script>
+    <script src="js/forms.js"></script>
+    <script src="js/options.js"></script>
+    <script src="js/confirm.js"></script>
+</body>
+</html>

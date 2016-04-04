@@ -1,0 +1,169 @@
+@import "customVariables";
+@import "../bower_components/bootstrap-sass/assets/stylesheets/bootstrap";
+
+$primary-color:#00ADBD;
+$primary-font:"Yantramanav", sans-serif;
+$primary-font-size:16px;
+$primary-font-color:#646464;
+$primary-font-weight:400;
+
+$icon-color-1:#9F9F9F;
+$icon-color-2:#CBD1D8;
+
+$form-color:#F6F6F6;
+
+$nav-height:56px;
+$content-width:650px;
+
+// GENERAL RULES
+body {
+    font-family:$primary-font;
+    font-color:$primary-font-color;
+    font-weight:$primary-font-weight;
+}
+
+i, p, td, th {
+    color:$primary-font-color;
+    display:table-cell;
+    vertical-align: middle;
+}
+
+nav {
+    height:$nav-height;
+    img {
+        height:$nav-height - 15;
+        margin-top:7px;
+        margin-left:20px;
+    }
+}
+
+input {
+    font-size:$primary-font-size;
+    padding:5px;
+    border-radius: 3px;
+    border:1px solid #DADADA;
+    background-color: $form-color;
+    width:305px;
+    height:45px;
+    line-height: normal;
+}
+
+select {
+    font-size:$primary-font-size;
+    color:$primary-font-color;
+    border-radius: 3px;
+    border:1px solid #DADADA;
+    background-color:$form-color;
+    width:100px;
+    height:44px;
+}
+
+td {
+    font-size: $primary-font-size + 2;
+    &:nth-of-type(1) {
+        width:400px;
+    }
+    &:nth-of-type(2) {
+        width:150px;
+    }
+    &:nth-of-type(3) {
+        width:120px;
+    }
+}
+
+// CLASS AND ID RULES
+#addbutton {
+    font-size: $primary-font-size + 2;
+    border-radius: 3px;
+    border:1px solid #DADADA;
+    background-color:$form-color;
+    width:50px;
+    height:45px;
+    i {
+        color:$icon-color-1;
+    }
+}
+
+.content {
+    width:$content-width;
+    margin:auto;
+    h1 {
+        margin-top:30px;
+        margin-bottom:30px;
+        font-weight:200;
+    }
+    table {
+        margin-top:60px;
+    }
+    ul {
+        margin-top:90px;
+    }
+}
+
+#input-area {
+    padding-top:15px;
+    padding-bottom:25px;
+}
+
+.form-field:not(#addbutton) {
+        margin-right:28px;
+}
+
+#name {
+    padding-left:15px;
+}
+
+#addbutton {
+    &:hover {
+        background-color: #EBEBEB;
+    }
+    &:active {
+        background-color: #D1D1D1;
+    }
+}
+
+.removebutton {
+    i {
+        color:$icon-color-2;
+        &:hover {
+            color:red;
+        }
+    }
+}
+
+#pagination-numbers {
+    text-align:center;
+    width:$content-width;
+    font-size:$primary-font-size + 1;
+}
+
+.yesButtonClass {
+    color:#FFFFFF;
+    background-color:#00ADBD !important;
+    &:hover {
+        background-color: #00919E !important;
+    }
+}
+
+// SPECIAL RULES (FOR PLACEHOLDERS)
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    $primary-font-color;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    $primary-font-color;
+   opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    $primary-font-color;
+   opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:    $primary-font-color;
+}
+
+// MEDIA QUERIES
+@media screen and (max-width:700px) {
+    .content {
+        width:100%;
+    }
+}
