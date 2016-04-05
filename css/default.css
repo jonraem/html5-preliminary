@@ -5884,6 +5884,30 @@ td {
     margin-top: 90px;
     margin-bottom: 60px; }
 
+.sort_icon {
+  height: 15px;
+  margin-left: 8px;
+  outline: 1px #FFFFFF solid;
+  transition: 0.25s outline; }
+  .sort_icon:hover {
+    outline: 1px #CBD1D8 solid; }
+  .sort_icon.asc {
+    outline: 1px #CBD1D8 solid; }
+  .sort_icon.dsc {
+    outline: 1px #CBD1D8 solid;
+    /* Horizontal flip */
+    -moz-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: fliph;
+    /*IE*/
+    /* Vertical flip */
+    -moz-transform: scaleY(-1);
+    -webkit-transform: scaleY(-1);
+    transform: scaleY(-1);
+    filter: flipv;
+    /*IE*/ }
+
 #input-area {
   padding-top: 15px;
   padding-bottom: 25px; }

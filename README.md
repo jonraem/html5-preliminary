@@ -26,7 +26,6 @@ Instructions
 Status
 -
 There are still a few things missing from the perfect version.
-* Sorting of table entries by name, gender or age.
 * Editing table entries with a button.
 * Enhanced responsivity. Responsive modal dialog box.
 * Code refactoring. Optimization.

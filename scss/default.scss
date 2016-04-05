@@ -101,6 +101,32 @@ td {
     }
 }
 
+.sort_icon {
+    height:15px;
+    margin-left:8px;
+    outline: 1px #FFFFFF solid;
+    transition: 0.25s outline;
+    &:hover {
+        outline: 1px $icon-color-2 solid;
+    }
+    &.asc {
+        outline: 1px $icon-color-2 solid;
+    }
+    &.dsc {
+        outline: 1px $icon-color-2 solid;
+        /* Horizontal flip */
+        -moz-transform: scaleX(-1);
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
+        filter: fliph; /*IE*/
+        /* Vertical flip */
+        -moz-transform: scaleY(-1);
+        -webkit-transform: scaleY(-1);
+        transform: scaleY(-1);
+        filter: flipv; /*IE*/
+    }
+}
+
 #input-area {
     padding-top:15px;
     padding-bottom:25px;

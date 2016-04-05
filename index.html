@@ -19,7 +19,7 @@
     <!-- The form you add persons with -->
     <div id="input-area" class="content">
         <h1>Add a person</h1>
-        <form id="add-persons" onsubmit="return false;">
+        <form id="add-persons" onsubmit="return false">
             <input class="form-field" id="name" type="text" name="name" placeholder="Name" />
             <select class="form-field" id="gender" name="gender">
                 <option value="" disabled selected hidden>Gender</option>
@@ -37,9 +37,9 @@
         <table class="table table-striped" id="persons-table">
             <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Gender</th>
-                    <th>Age</th>
+                    <th>Name<img class="sort_icon" onclick="sort_by_name()" src="img/sort_icon.png" /></th>
+                    <th>Gender<img class="sort_icon" onclick="sort_by_gender()" src="img/sort_icon.png" /></th>
+                    <th>Age<img class="sort_icon" onclick="sort_by_age()" src="img/sort_icon.png" /></th>
                     <th></th>
                 </tr>
             </thead>
@@ -64,6 +64,7 @@
     <script src="js/validateforms.js"></script>
     <script src="js/pagination.js"></script>
     <script src="js/forms.js"></script>
+    <script src="js/sorting.js"></script>
     <script src="js/options.js"></script>
     <script src="js/confirm.js"></script>
 </body>

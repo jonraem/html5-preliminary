@@ -3,15 +3,15 @@
 /* Get the list of names from localStorage. If no names are found, return an empty Array.
    If names are found, parse them from JSON and return them. */
 function get_persons() {
-    var persons = [];
+    var persons_array = [];
     var persons_str = localStorage.getItem('person');
     if (persons_str !== null) {
-        persons = JSON.parse(persons_str);
+        persons_array = JSON.parse(persons_str);
     }
-    return persons;
+    return persons_array;
 }
 
-// ------------ ADD PERSON INTO LOCALSTORAGE ------------
+// ------------ ADD PERSON ------------
 
 /* Adds an entry from input field values. Person is added to the Array and then stringified in the JSON file.
    We then call the render_entries() function to show the person that was just saved in the table. */
@@ -21,9 +21,7 @@ function add_person() {
         person_gender = genderDdl.options[genderDdl.selectedIndex].value,
         person_age = document.getElementById('age').value;
 
-    var persons = get_persons();
-
-    var person_id = counter; // This counter creates person IDs.
+    person_id = counter; // This counter creates person IDs.
     counter++;
 
     persons.push({
@@ -43,7 +41,47 @@ function add_person() {
     return false;
 }
 
-// ------------ DISPLAY PERSONS IN THE DOCUMENT ------------
+
+// ------------ ID INITIALIZATION ------------
+
+/* Initialize the id for person. This also makes sure the person ids are always from 0 to x. */
+function initialize_id(){
+    for (i = 0; i < persons.length; i++) {
+        persons[i].id = i;
+    }
+}
+
+// ------------ REMOVE PERSON ------------
+
+/* Gets the id of the table entry which had its remove button clicked as a parameter.
+   Then removes the person from the JSON and it is no longer rendered on the table.
+   If the person was the last one on the page, change the page to the one on the left
+   (current pagenumber - 1). Otherwise render table normally on current pagenumber. */
+function remove_person(id) {
+    persons.splice(id, 1);
+    localStorage.setItem('person', JSON.stringify(persons));
+
+    if (document.getElementById('insert-to-table').childNodes.length === 1 && persons.length !== 0) {
+        change_page(pagenumber - 1);
+    } else {
+        render_entries(pagenumber);
+    }
+    initialize_id();
+
+    return false;
+}
+
+/* Opens a modal dialog box to confirm removal of entry. If entry has the name
+   "test_me", remove entry without modal dialog. */
+function confirm_removal() {
+    if (this.parentNode.parentNode.childNodes[0].innerHTML === "test_me") {
+        remove_person(this.id); // Gets the id of the button clicked, which is the same as the person's index.
+    } else {
+        $("#dialog-confirm").dialog('open');
+    }
+}
+
+// ------------ DISPLAY PERSONS ------------
 
 /* Shows the persons in the JSON object. Creates a HTML snippet to wrap the person entries into
    the document. Shows at most 7 entries on the page that is passed as a parameter (pagenumber).
@@ -51,8 +89,7 @@ function add_person() {
    to call the confirm_removal() function to remove the entry from the document. Pagebuttons are
    displayed on the bottom of the page.*/
 function render_entries(pagenumber) {
-    var persons = get_persons(),
-        persons_on_page = paginate(persons);
+    persons_on_page = paginate(persons);
 
     var html = '';
 
@@ -73,40 +110,9 @@ function render_entries(pagenumber) {
         removebuttons[j].addEventListener('click', confirm_removal);
     }
 
-    display_pagebuttons(section);
     if (persons.length !== 0) { // Display pagebuttons and set one of them active based on current pagenumber.
+        display_pagebuttons(section);
         set_active_page(pagenumber);
-    }
-}
-
-// ------------ REMOVE PERSON FROM THE DOCUMENT ------------
-
-/* Gets the id of the table entry which had its remove button clicked as a parameter.
-   Then removes the person from the JSON and it is no longer rendered on the table.
-   If the person was the last one on the page, change the page to the one on the left
-   (current pagenumber - 1). Otherwise render table normally on current pagenumber. */
-function remove_person(id) {
-    var persons = get_persons();
-
-    persons.splice(id, 1);
-    localStorage.setItem('person', JSON.stringify(persons));
-
-    if (document.getElementById('insert-to-table').childNodes.length === 1 && persons.length !== 0) {
-        change_page(pagenumber - 1);
-    } else {
-        render_entries(pagenumber);
-    }
-
-    return false;
-}
-
-/* Opens a modal dialog box to confirm removal of entry. If entry has the name
-   "test_me", remove entry without modal dialog. */
-function confirm_removal() {
-    if (this.parentNode.parentNode.childNodes[0].innerHTML === "test_me") {
-        remove_person(this.id); // Gets the id of the button clicked, which is the same as the person's index.
-    } else {
-        $("#dialog-confirm").dialog('open');
     }
 }
 
@@ -128,5 +134,7 @@ var person_id = '0',
 
 var pagenumber = 0,
     section = 0;
+
+var persons = get_persons();
 
 render_entries(pagenumber);

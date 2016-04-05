@@ -1,3 +1,5 @@
+// ------------ PAGINATION ------------
+
 /* Iterate through the persons Array, slicing and pushing entry values
    into a pages Array. This creates the page structure. Pages Array is
    emptied every time the function is called to avoid stacking. */
@@ -11,6 +13,8 @@ function paginate(persons) {
     return pages;
 }
 
+/* Restrict the amount of page buttons on the screen. Divides the pages into
+   sections of 4. */
 function paginate_pagenumbers(pagenumbers) {
     sections = [];
 
@@ -21,29 +25,7 @@ function paginate_pagenumbers(pagenumbers) {
     return sections;
 }
 
-/* Change the page to the one determined by the method argument by first setting
-   active page in pagination and then show the persons on the requested page. */
-function change_page(number) {
-    pagenumber = number;
-    set_active_page(pagenumber);
-    render_entries(pagenumber);
-}
-
-/* Gets the ul element with the id "pagination-numbers" from the document. It then iterates
-   through all of its child nodes removing the "active" class and reapplying it to the
-   child node in the index determined by the method argument. */
-function set_active_page(number) {
-    var numbers = document.getElementById('pagination-numbers');
-
-    for (j = 0; j < numbers.childNodes.length; j++) { // Remove active classes from all li elements
-        numbers.childNodes[j].classList.remove('active');
-    }
-    for (x = 0; x < numbers.childNodes.length; x++) { // Set active page to page with id determined by method argument
-        if (numbers.childNodes[x].childNodes[0].getAttribute('id') === number.toString()) {
-            numbers.childNodes[x].classList.add('active');
-        }
-    }
-}
+// ------------ DISPLAY PAGINATION ------------
 
 /* Iterate through the list of pages and for each page create a pagebutton element.
    Then add an event listener to each pagebutton to call the change_page_with_button() method. */
@@ -77,6 +59,34 @@ function display_pagebuttons(page_section) {
     }
 }
 
+// ------------ CHANGE PAGE ------------
+
+/* Change the page to the one determined by the method argument by first setting
+   active page in pagination and then show the persons on the requested page. */
+function change_page(number) {
+    pagenumber = number;
+    set_active_page(pagenumber);
+    render_entries(pagenumber);
+}
+
+/* Gets the ul element with the id "pagination-numbers" from the document. It then iterates
+   through all of its child nodes removing the "active" class and reapplying it to the
+   child node in the index determined by the method argument. */
+function set_active_page(number) {
+    var numbers = document.getElementById('pagination-numbers');
+
+    for (j = 0; j < numbers.childNodes.length; j++) { // Remove active classes from all li elements
+        numbers.childNodes[j].classList.remove('active');
+    }
+    for (x = 0; x < numbers.childNodes.length; x++) { // Set active page to page with id determined by method argument
+        if (numbers.childNodes[x].childNodes[0].getAttribute('id') === number.toString()) {
+            numbers.childNodes[x].classList.add('active');
+        }
+    }
+}
+
+/* Changes the section to right or left, depending on button pressed. When you are at
+   section 1-4, pressing change_section_right means moving to section 5-8 (if those pages exist). */
 function change_section() {
     if (this.id === 'change_section_left') {
         section -= 1;
