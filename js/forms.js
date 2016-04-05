@@ -74,23 +74,28 @@ function render_entries(pagenumber) {
     }
 
     display_pagebuttons();
-
-    if (persons.length !== 0) {
-        set_active_page(pagenumber);
+    if (persons.length !== 0) { // Display pagebuttons and set one of them active based on current pagenumber.
+        set_active_page((pagenumber));
     }
 }
 
 // ------------ REMOVE PERSON FROM THE DOCUMENT ------------
 
 /* Gets the id of the table entry which had its remove button clicked as a parameter.
-   Then removes the person from the JSON and it is no longer rendered on the table. */
+   Then removes the person from the JSON and it is no longer rendered on the table.
+   If the person was the last one on the page, change the page to the one on the left
+   (current pagenumber - 1). Otherwise render table normally on current pagenumber. */
 function remove_person(id) {
     var persons = get_persons();
 
     persons.splice(id, 1);
     localStorage.setItem('person', JSON.stringify(persons));
 
-    render_entries(pagenumber);
+    if (document.getElementById('insert-to-table').childNodes.length === 1 && persons.length !== 0) {
+        change_page(pagenumber - 1);
+    } else {
+        render_entries(pagenumber);
+    }
 
     return false;
 }
