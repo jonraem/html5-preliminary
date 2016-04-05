@@ -11,6 +11,16 @@ function paginate(persons) {
     return pages;
 }
 
+function paginate_pagenumbers(pagenumbers) {
+    sections = [];
+
+    for (j = 0; j < pagenumbers.length; j += pagebuttons) {
+        sections.push(pagenumbers.slice(j, pagebuttons + j));
+    }
+    //console.log(sections);
+    return sections;
+}
+
 /* Change the page to the one determined by the method argument by first setting
    active page in pagination and then show the persons on the requested page. */
 function change_page(number) {
@@ -25,20 +35,31 @@ function change_page(number) {
 function set_active_page(number) {
     var numbers = document.getElementById('pagination-numbers');
 
-    for (j = 0; j < numbers.childNodes.length; j++) {
+    for (j = 0; j < numbers.childNodes.length; j++) { // Remove active classes from all li elements
         numbers.childNodes[j].classList.remove('active');
     }
-
-    numbers.childNodes[number].classList.add('active');
+    for (x = 0; x < numbers.childNodes.length; x++) { // Set active page to page with id determined by method argument
+        if (numbers.childNodes[x].childNodes[0].getAttribute('id') === number.toString()) {
+            numbers.childNodes[x].classList.add('active');
+        }
+    }
 }
 
 /* Iterate through the list of pages and for each page create a pagebutton element.
    Then add an event listener to each pagebutton to call the change_page_with_button() method. */
-function display_pagebuttons() {
+function display_pagebuttons(page_section) {
+    var sections = paginate_pagenumbers(pages);
+
     var html = '';
 
-    for (l = 0; l < pages.length; l++) {
-        html += '<li><a class="pagebutton" id="' + l + '">' + (l + 1) + '</a></li>';
+    if (page_section > 0) { // If pagenumber is bigger than the amount of pagebuttons, we're on another section
+        html += '<li><a class="sectionbutton" id="change_section_left">...</a></li>';
+    }
+    for (l = 0; l < sections[page_section].length; l++) { // Render pagebuttons (4 per section)
+        html += '<li><a class="pagebutton" id="' + (l + page_section * 4) + '">' + (l + 1 + page_section * 4) + '</a></li>';
+    }
+    if (sections.length > 1 && (sections.length - 1) !== page_section) { // If there are more sections than one, add sectionbutton
+        html += '<li><a class="sectionbutton" id="change_section_right">...</a></li>';
     }
 
     document.getElementById('pagination-numbers').innerHTML = html;
@@ -47,6 +68,22 @@ function display_pagebuttons() {
     for (k = 0; k < pagebuttons.length; k++) {
         pagebuttons[k].addEventListener('click', change_page_with_button);
     }
+
+    if (document.getElementsByClassName('sectionbutton') !== null) {
+        var sectionbuttons = document.getElementsByClassName('sectionbutton');
+        for (l = 0; l < sectionbuttons.length; l++) {
+            sectionbuttons[l].addEventListener('click', change_section);
+        }
+    }
+}
+
+function change_section() {
+    if (this.id === 'change_section_left') {
+        section -= 1;
+    } else if (this.id === 'change_section_right') {
+        section += 1;
+    }
+    display_pagebuttons(section);
 }
 
 /* When changing the active page with pagebuttons, use the button's id. */
@@ -55,4 +92,5 @@ function change_page_with_button() {
 }
 
 var pages = [],
-    pagesize = 7;
+    pagesize = 7,
+    pagebuttons = 4;

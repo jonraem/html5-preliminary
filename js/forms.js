@@ -73,9 +73,9 @@ function render_entries(pagenumber) {
         removebuttons[j].addEventListener('click', confirm_removal);
     }
 
-    display_pagebuttons();
+    display_pagebuttons(section);
     if (persons.length !== 0) { // Display pagebuttons and set one of them active based on current pagenumber.
-        set_active_page((pagenumber));
+        set_active_page(pagenumber);
     }
 }
 
@@ -126,6 +126,7 @@ document.getElementById('add-persons').addEventListener('keydown', function(e) {
 var person_id = '0',
     counter = 0;
 
-var pagenumber = 0;
+var pagenumber = 0,
+    section = 0;
 
 render_entries(pagenumber);
