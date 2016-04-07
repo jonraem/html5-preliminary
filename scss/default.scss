@@ -2,6 +2,7 @@
 @import "../bower_components/bootstrap-sass/assets/stylesheets/bootstrap";
 
 $primary-color:#00ADBD;
+$secondary-color:#50A7FF;
 $primary-font:"Yantramanav", sans-serif;
 $primary-font-size:16px;
 $primary-font-color:#646464;
@@ -110,10 +111,10 @@ td {
         outline: 1px $icon-color-2 solid;
     }
     &.asc {
-        outline: 1px $icon-color-2 solid;
+        outline: 2px $secondary-color solid;
     }
     &.dsc {
-        outline: 1px $icon-color-2 solid;
+        outline: 2px $secondary-color solid;
         /* Horizontal flip */
         -moz-transform: scaleX(-1);
         -webkit-transform: scaleX(-1);

@@ -5892,9 +5892,9 @@ td {
   .sort_icon:hover {
     outline: 1px #CBD1D8 solid; }
   .sort_icon.asc {
-    outline: 1px #CBD1D8 solid; }
+    outline: 2px #50A7FF solid; }
   .sort_icon.dsc {
-    outline: 1px #CBD1D8 solid;
+    outline: 2px #50A7FF solid;
     /* Horizontal flip */
     -moz-transform: scaleX(-1);
     -webkit-transform: scaleX(-1);

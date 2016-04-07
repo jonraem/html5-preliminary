@@ -128,6 +128,8 @@ document.getElementById('add-persons').addEventListener('keydown', function(e) {
     if (e.keyCode === 13) { validateForms(); }
 });
 
+// ------------ VARIABLES AND SETTINGS ------------
+
 /* Initialization for person ID creation. Counter helps with that. */
 var person_id = '0',
     counter = 0;

@@ -101,6 +101,8 @@ function change_page_with_button() {
     change_page(this.id);
 }
 
+// ------------ VARIABLES AND SETTINGS ------------
+
 var pages = [],
     pagesize = 7,
     pagebuttons = 4;
